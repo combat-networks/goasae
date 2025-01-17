@@ -1,0 +1,762 @@
+{
+  "refs": [
+    {
+      "name": "ref-point",
+      "content": [
+        {
+          "name": "point.lat",
+          "type": "byte",
+          "length": 3,
+          "rangeMin": -90,
+          "rangeMax": 90,
+          "converter": "pointLengthLimitedFloatConverter"
+        },
+        {
+          "name": "point.lon",
+          "type": "byte",
+          "length": 3,
+          "rangeMin": -180,
+          "rangeMax": 180,
+          "converter": "pointLengthLimitedFloatConverter"
+        },
+        {
+          "name": "point.hae",
+          "type": "byte",
+          "rangeMin": -10000,
+          "rangeMax": 100000,
+          "length": 3,
+          "converter": "pointLengthLimitedFloatConverter"
+        }
+      ]
+    },
+    {
+      "name": "ref-head",
+      "content": [
+        {
+          "name": "subNetType",
+          "type": "byte",
+          "length": 1,
+          "converter": "subNetTypeConverter"
+        },
+        {
+          "name": "messageType",
+          "type": "byte",
+          "length": 1,
+          "converter": "messageTypeConverter"
+        },
+        {
+          "name": "placeHolderForMsgLenAndCheckSum",
+          "type": "byte",
+          "length": 4,
+          "converter": "placeHolderConverter"
+        },
+        {
+          "name": "ref-point",
+          "type": "ref"
+        },
+        {
+          "name": ".uid",
+          "length": 2,
+          "converter": "uidConverter"
+        },
+        {
+          "name": ".how",
+          "value": "h-g-i-g-o",
+          "converter": "stringReflectConverter"
+        },
+        {
+          "name": "detail/contact.callsign",
+          "type": "string",
+          "sizeLimit": 127,
+          "converter": "stringConverter"
+        },
+        {
+          "name": "detail/takv.platform",
+          "value": "SAE-Message-Broker",
+          "converter": "constConverter"
+        }
+      ]
+    },
+    {
+      "name": "ref-head-contact",
+      "content": [
+        {
+          "name": "subNetType",
+          "type": "byte",
+          "length": 1,
+          "converter": "subNetTypeConverter"
+        },
+        {
+          "name": "messageType",
+          "type": "byte",
+          "length": 1,
+          "converter": "messageTypeConverter"
+        },
+        {
+          "name": "placeHolderForMsgLenAndCheckSum",
+          "type": "byte",
+          "length": 4,
+          "converter": "placeHolderConverter"
+        },
+        {
+          "name": "ref-point",
+          "type": "ref"
+        },
+        {
+          "name": ".how",
+          "value": "h-g-i-g-o",
+          "converter": "stringReflectConverter"
+        },
+        {
+          "name": "detail/__chat.senderCallsign",
+          "type": "string",
+          "sizeLimit": 127,
+          "converter": "stringConverter"
+        },
+        {
+          "name": "detail/__chat.id",
+          "value": "All Chat Rooms",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/__chat.parent",
+          "value": "RootContactGroup",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/__chat.chatroom",
+          "value": "All Chat Rooms",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/__chat.groupOwner",
+          "value": "false",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/__chat/chatgrp.uid0",
+          "value": "$detail/__chat.senderCallsign",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/__chat/chatgrp.uid1",
+          "value": "All Chat Rooms",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/__chat/chatgrp.id",
+          "value": "All Chat Rooms",
+          "converter": "constConverter"
+        },
+        {
+          "name": ".uid",
+          "length": 2,
+          "converter": "chatUidConverter"
+        },
+        {
+          "name": "detail/takv.platform",
+          "value": "SAE-Message-Broker",
+          "converter": "constConverter"
+        }
+      ]
+    },
+    {
+      "name": "ref-tail",
+      "content": [
+        {
+          "name": "messageLength",
+          "type": "byte",
+          "offset": 2,
+          "length": 2,
+          "converter": "msgLengthConverter"
+        },{
+          "name": "checkSum",
+          "type": "byte",
+          "offset": 4,
+          "length": 2,
+          "converter": "msgCheckSumConverter"
+        }
+      ]
+    },
+    {
+      "name": "detail/link.point",
+      "converter": "linkPointConverter"
+    },
+    {
+      "name": "detail/_medevac_.zone_prot_marker",
+      "converter": "linkPointConverter"
+    },
+    {
+      "name": "ref-equipment-info",
+      "content": [
+        {
+          "name": "detail/_medevac_.equipment_none",
+          "length": 0,
+          "sizeLimit": 1,
+          "relativeOffset": 0,
+          "converter": "booleanMaskConverter"
+        },
+        {
+          "name": "detail/_medevac_.hoist",
+          "length": 0,
+          "sizeLimit": 1,
+          "relativeOffset": 1,
+          "converter": "booleanMaskConverter"
+        },
+        {
+          "name": "detail/_medevac_.extraction_equipment",
+          "length": 0,
+          "sizeLimit": 1,
+          "relativeOffset": 2,
+          "converter": "booleanMaskConverter"
+        },
+        {
+          "name": "detail/_medevac_.ventilator",
+          "length": 0,
+          "sizeLimit": 1,
+          "relativeOffset": 3,
+          "converter": "booleanMaskConverter"
+        },
+        {
+          "name": "detail/_medevac_.equipment_other",
+          "length": 1,
+          "sizeLimit": 1,
+          "relativeOffset": 4,
+          "converter": "booleanMaskConverter"
+        },
+        {
+          "name": "detail/_medevac_.equipment_detail",
+          "sizeLimit": 127,
+          "converter": "stringConverter"
+        }
+      ]
+    },
+    {
+      "name": "ref-terrain",
+      "content": [
+        {
+          "name": "detail/_medevac_.terrain_none",
+          "length": 0,
+          "sizeLimit": 1,
+          "relativeOffset": 0,
+          "converter": "booleanMaskConverter"
+        },
+        {
+          "name": "detail/_medevac_.terrain_slope",
+          "length": 0,
+          "sizeLimit": 1,
+          "relativeOffset": 1,
+          "converter": "booleanMaskConverter"
+        },
+        {
+          "name": "detail/_medevac_.terrain_rough",
+          "length": 0,
+          "sizeLimit": 1,
+          "relativeOffset": 2,
+          "converter": "booleanMaskConverter"
+        },
+        {
+          "name": "detail/_medevac_.terrain_loose",
+          "length": 0,
+          "sizeLimit": 1,
+          "relativeOffset": 3,
+          "converter": "booleanMaskConverter"
+        },
+        {
+          "name": "detail/_medevac_.terrain_other",
+          "length": 0,
+          "sizeLimit": 1,
+          "relativeOffset": 4,
+          "converter": "booleanMaskConverter"
+        },
+        {
+          "name": "detail/_medevac_.terrain_slope_dir",
+          "length": 1,
+          "sizeLimit": 1,
+          "relativeOffset": 5,
+          "selections": ["N", "E", "W", "S"],
+          "converter": "maskConverter"
+        }
+      ]
+    },
+    {
+      "name": "detail/_medevac_/zMistsMap/zMist.",
+      "content": [
+        {
+          "name": "detail/_medevac_/zMistsMap/zMist.title",
+          "converter": "constzMistTitleConverter"
+        },{
+          "name": "detail/_medevac_/zMistsMap/zMist.z",
+          "sizeLimit": 127,
+          "converter": "stringConverter"
+        },{
+          "name": "detail/_medevac_/zMistsMap/zMist.m",
+          "length": 2,
+          "sizeLimit": 2,
+          "relativeOffset": 0,
+          "selections": ["Blast", "Blunt Trauma", "Bullet/GSW", "Burn > 20%", "Cold", "Heat", "Crush", "Fall/MVA", "Frag Single", "Frag Multiple", "Knife/Edge", "Radiation", "Nuclear", "Chemical", "Smoke/Inhalation", "Sting/Bite"],
+          "converter": "multiChoiceMaskConverter"
+        },{
+          "name": "detail/_medevac_/zMistsMap/zMist.i",
+          "length": 2,
+          "sizeLimit": 2,
+          "relativeOffset": 0,
+          "selections": ["Amputation", "Avulsion", "Bleeding", "Burn", "Deformity", "Foreign Body", "Gunshot Wound", "Hematoma", "Laceration", "Puncture", "Stab", "Tourniquet", "Fracture"],
+          "converter": "multiChoiceMaskConverter"
+        },{
+          "name": "detail/_medevac_/zMistsMap/zMist.s",
+          "length": 2,
+          "sizeLimit": 2,
+          "relativeOffset": 0,
+          "converter": "zMistsMultiChoiceMaskConverter"
+        },{
+          "name": "detail/_medevac_/zMistsMap/zMist.t",
+          "sizeLimit": 127,
+          "converter": "stringConverter"
+        }
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "content": [
+        {
+          "name": ".how",
+          "type": "b-t-v",
+          "value": "h-g-i-g-o",
+          "converter": "stringReflectConverter"
+        },
+        {
+          "name": "placeHolderForMsgLen",
+          "type": "byte",
+          "length": 1,
+          "converter": "placeHolderConverter"
+        },
+        {
+          "name": "messageType",
+          "type": "byte",
+          "length": 1,
+          "converter": "messageTypeConverter"
+        },
+        {
+          "name": ".uid",
+          "length": 1,
+          "converter": "uidCodecConverter"
+        },{
+          "name": "detail/contact.callsign",
+          "value": "???",
+          "converter": "constConverter"
+        },{
+          "name": "detail/remarks.",
+          "converter": "remarksCodecConverter"
+        },
+        {
+          "name": "detail/takv.platform",
+          "value": "SAE-Message-Broker",
+          "converter": "constConverter"
+        },
+        {
+          "name": "messageLength",
+          "type": "byte",
+          "offset": 0,
+          "length": 1,
+          "converter": "msgLengthConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "a-f-G-U-C"
+        },
+        {
+          "name": "detail/__group.name",
+          "length": 0,
+          "sizeLimit": 1,
+          "relativeOffset": 0,
+          "selections": ["White", "Yellow", "Orange", "Magenta", "Red", "Maroon", "Purple", "Dark Blue", "Blue", "Cyan", "Teal", "Green", "Dark Green", "Brown"],
+          "converter": "maskConverter"
+        },
+        {
+          "name": "detail/__group.role",
+          "length": 1,
+          "sizeLimit": 1,
+          "relativeOffset": 4,
+          "selections": ["Team Member", "Team Lead", "HQ", "Sniper", "Medic", "Forward Observer", "RTO", "K9"],
+          "converter": "maskConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head-contact",
+          "type": "b-t-f",
+          "length": -1
+        },
+        {
+          "name": "detail/remarks.",
+          "type": "string",
+          "length": -1,
+          "sizeLimit": 32767,
+          "converter": "stringConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "u-d-f",
+          "length": -1,
+          "converter": "headConverter"
+        },
+        {
+          "name": "detail/fillColor.value",
+          "type": "byte",
+          "length": 4,
+          "converter": "colorConverter"
+        },
+        {
+          "name": "detail/link.point",
+          "type": "array",
+          "length": 9,
+          "sizeLimit": 127
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "u-d-r",
+          "length": -1,
+          "converter": "headConverter"
+        },
+        {
+          "name": "detail/fillColor.value",
+          "type": "byte",
+          "length": 4,
+          "converter": "colorConverter"
+        },
+        {
+          "name": "detail/link.point",
+          "type": "array",
+          "length": 9,
+          "sizeLimit": 4
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "u-d-c-c",
+          "length": -1,
+          "converter": "headConverter"
+        },
+        {
+          "name": "detail/fillColor.value",
+          "type": "byte",
+          "length": 4,
+          "converter": "colorConverter"
+        },
+        {
+          "name": "detail/shape/ellipse.major",
+          "length": 4,
+          "converter": "floatConverter"
+        },
+        {
+          "name": "detail/height.value",
+          "length": 4,
+          "value": "0.0",
+          "converter": "floatConverter"
+        },
+        {
+          "name": "detail/shape/ellipse.minor",
+          "value": "$detail/shape/ellipse.major",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/shape/ellipse.angle",
+          "value": "360.0",
+          "converter": "constConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "u-d-c-e",
+          "length": -1,
+          "converter": "headConverter"
+        },
+        {
+          "name": "detail/shape/ellipse.swapAxis",
+          "type": "byte",
+          "length": 1,
+          "converter": "booleanConverter"
+        },
+        {
+          "name": "detail/fillColor.value",
+          "type": "byte",
+          "length": 4,
+          "converter": "colorConverter"
+        },
+        {
+          "name": "detail/shape/ellipse.major",
+          "type": "byte",
+          "length": 4,
+          "converter": "floatConverter"
+        },
+        {
+          "name": "detail/shape/ellipse.minor",
+          "type": "byte",
+          "length": 4,
+          "converter": "floatConverter"
+        },
+        {
+          "name": "detail/shape/ellipse.angle",
+          "type": "byte",
+          "length": 4,
+          "converter": "floatConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "b-m-r",
+          "length": -1,
+          "converter": "headConverter"
+        },
+        {
+          "name": ".how",
+          "value": "h-e",
+          "converter": "stringReflectConverter"
+        },
+        {
+          "name": "mask",
+          "type": "byte",
+          "length": 1,
+          "converter": "routeMaskConverter"
+        },
+        {
+          "name": "detail/color.value",
+          "type": "byte",
+          "length": 4,
+          "converter": "colorConverter"
+        },
+        {
+          "name": "detail/link_attr.color",
+          "value": "$detail/color.value",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/link_attr.prefix",
+          "value": "CP",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/link_attr.stroke",
+          "value": "3",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/link_attr.planningmethod",
+          "value": "Infil",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/strokeWeight.value",
+          "value": "3",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/labels_on.value",
+          "value": "false",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/link.point",
+          "type": "array",
+          "length": 9,
+          "sizeLimit": 127,
+          "converter": "routeLinkPointConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "a-u-G-/a-n-G-",
+          "typeMatch": "simpleIcon"
+        },
+        {
+          "name": ".type",
+          "type": "string",
+          "sizeLimit": 127,
+          "converter": "stringReflectConverter"
+        },
+        {
+          "name": "detail/usericon.iconsetpath",
+          "type": "byte",
+          "length": 4,
+          "converter": "pathIconConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "???",
+          "typeMatch": "2512icon"
+        },
+        {
+          "name": ".type",
+          "type": "string",
+          "sizeLimit": 127,
+          "converter": "stringReflectConverter"
+        },
+        {
+          "name": "detail/usericon.iconsetpath",
+          "value": "COT_MAPPING_2525C/???/???",
+          "converter": "constConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "b-r-f-h-c"
+        },
+        {
+          "name": "detail/status.readiness",
+          "value": "false",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/color.argb",
+          "value": "-1",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/link.parent_callsign",
+          "type": "string",
+          "sizeLimit": 127,
+          "converter": "stringConverter"
+        },
+        {
+          "name": "detail/_medevac_.title",
+          "type": "string",
+          "sizeLimit": 127,
+          "converter": "stringConverter"
+        },
+        {
+          "name": "detail/_medevac_.casevac",
+          "value": "false",
+          "converter": "constConverter"
+        },
+        {
+          "name": "detail/_medevac_.freq",
+          "length": 4,
+          "converter": "floatConverter"
+        },
+        {
+          "name": "detail/_medevac_.urgent",
+          "length": 1,
+          "converter": "intConverter"
+        },
+        {
+          "name": "detail/_medevac_.priority",
+          "length": 1,
+          "converter": "intConverter"
+        },
+        {
+          "name": "detail/_medevac_.routine",
+          "length": 1,
+          "converter": "intConverter"
+        },
+        {
+          "name": "ref-equipment-info"
+        },
+        {
+          "name": "detail/_medevac_.litter",
+          "length": 1,
+          "converter": "intConverter"
+        },
+        {
+          "name": "detail/_medevac_.ambulatory",
+          "length": 1,
+          "converter": "intConverter"
+        },
+        {
+          "name": "detail/_medevac_.security",
+          "length": 1,
+          "converter": "intConverter"
+        },
+        {
+          "name": "detail/_medevac_.hlz_marking",
+          "length": 1,
+          "converter": "intConverter"
+        },
+        {
+          "name": "detail/_medevac_.us_military",
+          "length": 1,
+          "converter": "intConverter"
+        },
+        {
+          "name": "detail/_medevac_.us_civilian",
+          "length": 1,
+          "converter": "intConverter"
+        },
+        {
+          "name": "detail/_medevac_.nonus_military",
+          "length": 1,
+          "converter": "intConverter"
+        },
+        {
+          "name": "detail/_medevac_.nonus_civilian",
+          "length": 1,
+          "converter": "intConverter"
+        },
+        {
+          "name": "detail/_medevac_.epw",
+          "length": 1,
+          "converter": "intConverter"
+        },
+        {
+          "name": "detail/_medevac_.child",
+          "length": 1,
+          "converter": "intConverter"
+        },
+        {
+          "name": "ref-terrain"
+        },
+        {
+          "name": "detail/_medevac_.obstacles",
+          "length": 0,
+          "converter": "obstaclesConverter"
+        },
+        {
+          "name": "detail/_medevac_.zone_prot_marker",
+          "type": "array",
+          "length": 9,
+          "sizeLimit": 1,
+          "converter": "linkPointConverter"
+        },
+        {
+          "name": "detail/_medevac_/zMistsMap/zMist.",
+          "type": "array",
+          "sizeLimit": 127
+        }
+      ]
+    }
+  ]
+}

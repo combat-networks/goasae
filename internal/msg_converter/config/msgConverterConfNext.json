@@ -1,0 +1,272 @@
+{
+  "refs": [
+    {
+      "name": "ref-point",
+      "content": [
+        {
+          "name": "point.lat",
+          "type": "byte",
+          "length": 3,
+          "rangeMin": -90,
+          "rangeMax": 90,
+          "converter": "pointLengthLimitedFloatConverter"
+        },
+        {
+          "name": "point.lon",
+          "type": "byte",
+          "length": 3,
+          "rangeMin": -180,
+          "rangeMax": 180,
+          "converter": "pointLengthLimitedFloatConverter"
+        },
+        {
+          "name": "point.hae",
+          "type": "byte",
+          "rangeMin": -10000,
+          "rangeMax": 100000,
+          "length": 3,
+          "converter": "pointLengthLimitedFloatConverter"
+        }
+      ]
+    },
+    {
+      "name": "ref-head",
+      "content": [
+        {
+          "name": "subNetType",
+          "type": "byte",
+          "length": 1,
+          "converter": "subNetTypeConverter"
+        },
+        {
+          "name": "messageType",
+          "type": "byte",
+          "length": 1,
+          "converter": "messageTypeConverter"
+        },
+        {
+          "name": "detail/__group",
+          "type": "byte",
+          "length": 1,
+          "converter": "roleGroupConverter"
+        },
+        {
+          "name": "ref-point",
+          "type": "byte"
+        },
+        {
+          "name": "detail/uid.Droid",
+          "type": "byte",
+          "length": 2,
+          "converter": "uidConverter"
+        },
+        {
+          "name": "detail/contact.callSign",
+          "type": "string",
+          "length": -1,
+          "sizeLimit": 127,
+          "converter": "stringConverter"
+        }
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "a-f-G-U-C",
+          "length": -1,
+          "converter": "headConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "b-t-f",
+          "length": -1,
+          "converter": "headConverter"
+        },
+        {
+          "name": "detail/remarks.",
+          "type": "string",
+          "length": -1,
+          "sizeLimit": 32767,
+          "converter": "stringConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "u-d-f",
+          "length": -1,
+          "converter": "headConverter"
+        },
+        {
+          "name": "mask",
+          "type": "byte",
+          "length": 1,
+          "converter": "polyMaskConverter"
+        },
+        {
+          "name": "detail/color.value",
+          "type": "byte",
+          "length": 4,
+          "converter": "colorConverter"
+        },
+        {
+          "name": "detail/link.point",
+          "type": "array",
+          "length": 9,
+          "sizeLimit": 127,
+          "converter": "linkPointConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "u-d-r",
+          "length": -1,
+          "converter": "headConverter"
+        },
+        {
+          "name": "detail/color.value",
+          "type": "byte",
+          "length": 4,
+          "converter": "colorConverter"
+        },
+        {
+          "name": "detail/link.point",
+          "type": "array",
+          "length": 9,
+          "sizeLimit": 127,
+          "converter": "linkPointConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "u-d-c-c",
+          "length": -1,
+          "converter": "headConverter"
+        },
+        {
+          "name": "detail/color.value",
+          "type": "byte",
+          "length": 4,
+          "converter": "colorConverter"
+        },
+        {
+          "name": "detail/shape/ellipse.major",
+          "type": "byte",
+          "length": 4,
+          "converter": "floatConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "u-d-c-e",
+          "length": -1,
+          "converter": "headConverter"
+        },
+        {
+          "name": "mask",
+          "type": "byte",
+          "length": 1,
+          "converter": "ellipseMaskConverter"
+        },
+        {
+          "name": "detail/color.value",
+          "type": "byte",
+          "length": 4,
+          "converter": "colorConverter"
+        },
+        {
+          "name": "detail/shape/ellipse.major",
+          "type": "byte",
+          "length": 4,
+          "converter": "floatConverter"
+        },
+        {
+          "name": "detail/shape/ellipse.minor",
+          "type": "byte",
+          "length": 4,
+          "converter": "floatConverter"
+        },
+        {
+          "name": "detail/shape/ellipse.angle",
+          "type": "byte",
+          "length": 4,
+          "converter": "floatConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "b-m-r",
+          "length": -1,
+          "converter": "headConverter"
+        },
+        {
+          "name": "mask",
+          "type": "byte",
+          "length": 1,
+          "converter": "routeMaskConverter"
+        },
+        {
+          "name": "detail/link.point",
+          "type": "array",
+          "length": 9,
+          "sizeLimit": 127,
+          "converter": "linkPointConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "a-u-G",
+          "length": -1,
+          "converter": "headConverter"
+        },
+        {
+          "name": "pathIcon",
+          "type": "byte",
+          "length": 2,
+          "converter": "pathIconConverter"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "name": "ref-head",
+          "type": "???",
+          "length": -1,
+          "converter": "headConverter"
+        },
+        {
+          "name": "cotType",
+          "type": "string",
+          "length": -1,
+          "sizeLimit": 127,
+          "converter": "stringTypeConverter"
+        }
+      ]
+    }
+  ]
+}

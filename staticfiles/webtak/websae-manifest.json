@@ -1,0 +1,77 @@
+{
+  "plugins": [],
+  "iconSets": [
+    "Fema Icons",
+    "WASP",
+    "Default",
+    "Generic Icons",
+    "OSM",
+    "Google"
+  ],
+  "saSendInterval": 60000,
+  "saStaleDelay": 180000,
+  "pingInterval": 30000,
+  "defaultMapLayer": "ESRIWorldTopo",
+  "baseLayers": [
+    {
+      "title": "WGS84 Map",
+      "type": "xyz",
+      "name": "WGS84Map",
+      "url": "http://manet.synology.me:4003/wgs84/{z}/{x}/{y}.jpg"
+    },
+    {
+      "title": "Mapbox Streets",
+      "type": "xyz",
+      "name": "MapboxStreets",
+      "url": "https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NDg1bDA1cjYzM280NHJ5NzlvNDMifQ.d6e-nNyBDtmQCVwVNivz7A#3/0.00/0.00"
+    },
+    {
+      "title": "Mapbox Dark",
+      "type": "xyz",
+      "name": "MapboxDark",
+      "url": "https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NDg1bDA1cjYzM280NHJ5NzlvNDMifQ.d6e-nNyBDtmQCVwVNivz7A#3/0.00/0.00"
+    },
+    {
+      "title": "Mapbox Light",
+      "type": "xyz",
+      "name": "MapboxLight",
+      "url": "https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NDg1bDA1cjYzM280NHJ5NzlvNDMifQ.d6e-nNyBDtmQCVwVNivz7A#3/0.00/0.00"
+    },
+    {
+      "title": "Mapbox Outdoors",
+      "type": "xyz",
+      "name": "MapboxOutdoors",
+      "url": "https://api.mapbox.com/styles/v1/mapbox/outdoors-v10/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NDg1bDA1cjYzM280NHJ5NzlvNDMifQ.d6e-nNyBDtmQCVwVNivz7A#3/0.00/0.00"
+    },
+    {
+      "title": "Mapbox Satellite",
+      "type": "xyz",
+      "name": "MapboxSatellite",
+      "url": "https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v10/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NDg1bDA1cjYzM280NHJ5NzlvNDMifQ.d6e-nNyBDtmQCVwVNivz7A#3/0.00/0.00"
+    },
+    {
+      "title": "Google Satellite",
+      "type": "xyz",
+      "name": "GoogleSatellite",
+      "url": "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+    },
+    {
+      "title": "Google Road",
+      "type": "xyz",
+      "name": "GoogleRoad",
+      "url": "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+    },
+    {
+      "title": "Google Hybrid",
+      "type": "xyz",
+      "name": "GoogleHybrid",
+      "url": "http://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+    },
+    {
+      "title": "ESRI World Topo",
+      "type": "xyz",
+      "name": "ESRIWorldTopo",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+    }
+  ]
+}

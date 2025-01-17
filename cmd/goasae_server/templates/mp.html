@@ -1,0 +1,22 @@
+<div>
+    <table class="table table-hover table-sm units">
+        <tr>
+            <th>UID</th>
+            <th>File</th>
+            <th>Scope</th>
+            <th>Creator</th>
+            <th>Size</th>
+            <th>MIME type</th>
+            <th>Keywords</th>
+        </tr>
+        <tr v-for="p in all">
+            <td><a :href="'/mp/' + p.UID">{{ p.UID }}</a></td>
+            <td>{{ p.Name }}</td>
+            <td>{{ p.Scope }}</td>
+            <td>{{ p.CreatorUid }}</td>
+            <td>{{ p.Size }}</td>
+            <td>{{ p.MIMEType }}</td>
+            <td>{{ p.Keywords }}</td>
+        </tr>
+    </table>
+</div>

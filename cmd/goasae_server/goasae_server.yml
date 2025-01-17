@@ -1,0 +1,55 @@
+---
+# admin api listener web
+admin_addr: ":8088"
+# Marti api listener. Port should be 8080 for no ssl and 8443 for ssl. If ssl is configured (ssl.use_ssl=true)
+# cerver certificate is used
+api_addr: ":8080"
+# Certificate enrollment listener. You must provide external certificate validation, not server cert!
+cert_addr: ":8446"
+tcp_fed_addr: ":9000"
+# TCP stream listener
+tcp_addr: ":8087"
+# UDP stream listener
+udp_addr: ":8087"
+# TCP TLS listener for ATAK clients. Port should be 8089
+ssl_addr: ":8089"
+# if true server will save all messages to files in data/log folder
+log: false
+# directory for all server data (default is "data")
+data_dir: data
+# file with user creds and settings (default is "users.yml")
+users_file: users.yml
+# Webtak files root folder
+webtak_root: ""
+# enable Datasync/missions api
+datasync: false
+
+#serials:
+#  COM14
+
+
+#多服务器云端联邦
+#host:远端服务器IP地址/域名
+#proto:tcp
+#port: 19000
+#name:
+feds:
+  - host: 121.41.110.119
+    proto: tcp
+    port: 19000
+    name: ali
+
+#本地自身 8088对应的 map
+me:
+  lat: 35.462939
+  lon: -97.537283
+  zoom: 5
+
+#服务器自己的证书
+ssl:
+  use_ssl: false
+  ca: cert/cacert.pem
+  cert: cert/cert.pem
+  key: cert/cert.key
+  # enrolled cert ttl in days (default is 365)
+  cert_ttl_days: 365

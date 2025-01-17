@@ -1,0 +1,184 @@
+<div id="app">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">GoASAE server <span v-if="config">{{ config.version }}</span></a>
+            <span class="badge rounded-pill bg-primary"
+                  :class="connected() ?'bg-success': 'bg-secondary'">.</span>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Contacts <span class="badge rounded-pill bg-success">{{ contactsNum() }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li v-for="u in byCategory('contact')">
+                                <a class="dropdown-item" href="#" v-on:click="setCurrentUnitUid(u.uid, true)">
+                                    <img :src="getImg(u.unit, 20)"/>
+                                    <span v-if="u.unit.lat === 0 && u.unit.lon === 0">* </span>{{ u.unit.callsign }}<span
+                                        v-if="u.unit.status && u.unit.status !=='Online'"> ({{ u.unit.status }})</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink2" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Units <span class="badge rounded-pill bg-success">{{ countByCategory('unit') }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink2">
+                            <li v-for="u in byCategory('unit')">
+                                <a class="dropdown-item" href="#" v-on:click="setCurrentUnitUid(u.uid, true)">
+                                    <img :src="getImg(u.unit, 14)"/>
+                                    {{ getUnitName(u) }}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink3" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Points <span class="badge rounded-pill bg-success">{{ countByCategory('point') }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink3">
+                            <li v-for="u in byCategory('point')">
+                                <a class="dropdown-item" href="#" v-on:click="setCurrentUnitUid(u.uid, true)">
+                                    {{ getUnitName(u) }}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#messages">Chat <span
+                                class="badge rounded-pill bg-success">{{ msgNum() }}</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid vh-100 mh-100" style="padding-top: 4rem;">
+        <div class="row h-100">
+            <div id="map" class="col-9 h-100" style="cursor:crosshair;">
+            </div>
+            <div class="col-3">
+                <div class="card mb-1" v-if="config && config.callsign">
+                    <div class="card-header">Me ({{ config.callsign }})</div>
+                    <div class="card-body">
+                        <b>UID:</b> {{ config.uid }}<br/>
+                        <div v-if="config.team">
+                            <b>Team:</b> {{ config.team }}, <b>Role:</b>{{ config.role }}
+                        </div>
+                        <div>
+                            <b>coords:</b> {{ printCoords(config.lat, config.lon) }}
+                            <span class="badge rounded-pill bg-success" style="cursor:default;"
+                                  v-on:click="map.setView([config.lat, config.lon])"><i
+                                    class="bi bi-geo"></i></span>
+                            <span v-if="coords">({{ distBea(latlng(config.lat, config.lon), coords) }} to cursor)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-1">
+                    <div class="card-header">Tools</div>
+                    <div class="card-body">
+                        <div class="btn-group" role="group" aria-label="Tools">
+                            <input type="radio" class="btn-check" name="btnradio" id="select" autocomplete="off"
+                                   checked>
+                            <label class="btn btn-outline-primary btn-sm" for="select">Select</label>
+
+                            <input type="radio" class="btn-check" name="btnradio" id="redx" autocomplete="off">
+                            <label class="btn btn-outline-primary btn-sm" for="redx">Red-x</label>
+                        </div>
+                        <div v-if="getTool('redx')" class="mt-1">
+                            <span class="badge bg-danger">RedX</span>: {{ printCoordsll(getTool('redx').getLatLng()) }}
+                            <span class="badge rounded-pill bg-success" style="cursor:default;"
+                                  v-on:click="map.setView(getTool('redx').getLatLng())"><i class="bi bi-geo"></i></span>
+                            <span class="badge rounded-pill bg-danger" style="cursor:default;"
+                                  v-on:click="removeTool('redx')">X</span>
+                        </div>
+                        <div v-if="getTool('dp1')" class="mt-1">
+                            <span class="badge bg-success">DP1</span>: {{ printCoordsll(getTool('dp1').getLatLng()) }}
+                            <span class="badge rounded-pill bg-success" style="cursor:default;"
+                                  v-on:click="map.setView(getTool('dp1').getLatLng())"><i class="bi bi-geo"></i></span>
+                            <span class="badge rounded-pill bg-danger" style="cursor:default;"
+                                  v-on:click="removeTool('dp1')">X</span>
+                        </div>
+                        <div v-if="coords" class="mt-1">
+                            <span class="badge bg-secondary">cursor</span>: {{ printCoordsll(coords) }} <span
+                                v-if="getTool('redx')">({{ distBea(getTool('redx').getLatLng(), coords) }} from RedX)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" v-if="current_unit">
+                    <div class="card-header">
+                            <span class="pull-left fw-bold" v-on:click="mapToUnit(current_unit)">
+                                <img :src="milImg(current_unit.unit)"/> {{ getUnitName(current_unit) }} <span
+                                    v-if="current_unit.unit.status"> ({{ current_unit.unit.status }})</span>
+                                <img height="24" src="/static/icons/coord_unlock.png"
+                                     v-if="current_unit.unit.category !== 'point' && locked_unit_uid != current_unit.uid"
+                                     v-on:click="locked_unit_uid=current_unit.uid"/>
+                                <img height="24" src="/static/icons/coord_lock.png"
+                                     v-if="locked_unit_uid == current_unit.uid"
+                                     v-on:click="locked_unit_uid=''"/>
+                            </span>
+                    </div>
+                    <div class="card-body">
+                        <b>UID:</b> {{ current_unit.uid }}<br/>
+                        <div v-if="current_unit.unit.team">
+                            <b>Team:</b> {{ current_unit.unit.team }},
+                            <b>Role:</b> {{ current_unit.unit.role }}
+                        </div>
+                        <div>
+                            <b>Type:</b> {{ current_unit.unit.type }} <b>SIDC:</b> {{ current_unit.unit.sidc }}
+                        </div>
+                        <div>
+                            <b>coords:</b> {{ printCoords(current_unit.unit.lat, current_unit.unit.lon) }}
+                            <span class="badge rounded-pill bg-success" style="cursor:default;"
+                                  v-on:click="map.setView(current_unit.coords())"><i
+                                    class="bi bi-geo"></i></span>
+                            <span v-if="coords">({{ distBea(current_unit.latlng(), coords) }} to cursor)</span>
+                        </div>
+                        <b>speed:</b> {{ sp(current_unit.unit.speed) }} km/h,
+                        <b>hae:</b> {{ current_unit.unit.hae.toFixed(1) }}<br/>
+                        <div v-if="current_unit.unit.tak_version">
+                            <b>ver:</b> {{ current_unit.unit.tak_version }}<br/>{{ current_unit.unit.device }}</div>
+                        <div v-if="current_unit.unit.battery"><b>battery:</b> {{ current_unit.unit.battery }}</div>
+                        <div v-if="current_unit.unit.parent_uid"><b>parent:</b> {{ current_unit.unit.parent_uid }}
+                            <span v-if="current_unit.unit.parent_callsign">({{ current_unit.unit.parent_callsign }})</span>
+                        </div>
+                        <div>
+                            <b>time:</b> {{ dt(current_unit.unit.start_time) }} <b>stale:</b>
+                            {{ dt(current_unit.unit.stale_time) }}<br/>
+                            <b>last seen</b>: {{ dt(current_unit.unit.last_seen) }}
+                        </div>
+                        {{ current_unit.unit.text }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="messages" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Chat messages</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div v-for="m in messages" class="alert alert-secondary">
+                        <span class="badge text-bg-secondary">{{ dt(m.time) }}</span>
+                        <span class="badge text-bg-success">{{ m.from }}</span> -> <span
+                            class="badge text-bg-success">{{ m.chatroom }}</span><br/>
+                        {{ m.text }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
